@@ -26,7 +26,7 @@ void sim_init(
 void sim_activate_arrivals(
     SimState *state,
     Request requests[],
-    int num_requests
+    int num_requests //총 리퀘스트 양 <- 초기 값(이건 dynamic하게 하기 보단, 전체 양을 정하고 시간 지나면 키는 형태로 요청 들어오는 걸 구현)
 ){
     for(int i= 0; i<num_requests; i++){
         Request *req = &requests[i];
@@ -60,7 +60,7 @@ void sim_activate_arrivals(
 // count까지 현재 살아있는 애들
 int sim_collect_alive_indices(
     Request requests[],
-    int num_requests,
+    int num_requests, 
     int alive_indices[],   // 살아있는 requests들
     int max_alive //나중에 확장할 때 사용; 우선은 request 개수는 신경 쓰지 않기로.
     //어차피 budget 못맞추면 alive에 못올라가서 ㄱㅊ 
@@ -106,7 +106,7 @@ void sim_run_decode_step(
                 //0이 됐으니까, 끝난 상태로 변경   ^^^^ 이 조건 없으면 우연히 들어온 좀비의 상태가 변경..
                 req -> finished_time = state -> time;
                 req -> alive_flag    = 0;
-                state -> kv_in_use -= req->kv_tokens;
+                state -> kv_in_use -= req->kv_tokens; //캐시리턴
                 if(state -> kv_in_use < 0){
                     state ->kv_in_use =0;
                 }

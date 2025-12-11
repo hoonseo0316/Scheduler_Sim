@@ -12,7 +12,8 @@ int scheduler_pick_batch_fifo(
         limit = alive_count;
     }
 
-    // 앞에서부터 limit개 복사(limit보다 alive_count가 작으면 전부 갖고오고 아니면 limit만큼)
+    // 앞에서부터 limit개 복사(limit보다 alive_count가 작으면 전부 갖고오고 아니면 limit만큼) 
+    // alive목록에서 앞에서부터 최대 limit개 처리하는 로직
     for(int i = 0; i < limit; i++){
         selected_indices[i] = alive_indices[i];
     }
